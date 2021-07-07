@@ -1,0 +1,15 @@
+{
+    "name": "javaci/mikrotik-graph",
+    "type": "project",
+    "require": {
+        "evilfreelancer/routeros-api-php": "^1.4",
+        "ext-json": "^8.0",
+        "flatbase/flatbase": "^0.4.1"
+    },
+    "authors": [
+        {
+            "name": "Osman Taha Kıyıcılar",
+            "email": "tr.osmantaha@gmail.com"
+        }
+    ]
+}
