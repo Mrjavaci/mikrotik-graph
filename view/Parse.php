@@ -32,4 +32,13 @@ class Parse
         }
         return $filesArray;
     }
+
+    public function getNormalizedArray()
+    {
+        $allRows = array();
+        foreach ($this->flatBases as $flatBase) {
+            $allRow = $flatBase->getAllRows();
+            array_push($allRows, $allRow);
+        }
+    }
 }

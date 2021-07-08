@@ -12,12 +12,12 @@ class FlatFileDatabaseHelper
 
     public function __construct($collectionName = null)
     {
-        if ($collectionName != null) {
+        if ($collectionName == null) {
             $this->collectionName = FlatFileDatabaseHelper::createCollectionName();
         } else {
-            $this->collectionName = $collectionName;
+            $this->collectionName =  $collectionName;
         }
-        $storage = new Flatbase\Storage\Filesystem(__DIR__ . DATABASE_FOLDER);
+        $storage = new Flatbase\Storage\Filesystem(__DIR__ . "/.." . DATABASE_FOLDER);
         $flatBase = new Flatbase\Flatbase($storage);
         $this->flatBase = $flatBase;
     }
