@@ -8,9 +8,15 @@
 class FlatFileDatabaseHelper
 {
     private $flatBase;
+    private $collectionName;
 
-    public function __construct()
+    public function __construct($collectionName = null)
     {
+        if ($collectionName != null) {
+            $this->collectionName = FlatFileDatabaseHelper::createCollectionName();
+        } else {
+            $this->collectionName = $collectionName;
+        }
         $storage = new Flatbase\Storage\Filesystem(__DIR__ . DATABASE_FOLDER);
         $flatBase = new Flatbase\Flatbase($storage);
         $this->flatBase = $flatBase;
@@ -18,13 +24,13 @@ class FlatFileDatabaseHelper
 
     public function addNewRow($arr)
     {
-        $this->flatBase->insert()->in('lastStatistics')->set($arr)->execute();
+        $this->flatBase->insert()->in($this->collectionName)->set($arr)->execute();
     }
 
 
     public function getAllRows()
     {
-        return $this->flatBase->read()->in('lastStatistics')->get();
+        return $this->flatBase->read()->in($this->collectionName)->get();
     }
 
     public function getAllRowsNormalized()
@@ -35,5 +41,10 @@ class FlatFileDatabaseHelper
             $groups[$row["gorupName"]][] = $row["userName"];
         }
         return $groups;
+    }
+
+    public static function createCollectionName()
+    {
+        return date('d-m-y');
     }
 }
