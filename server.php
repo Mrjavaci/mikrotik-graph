@@ -2,8 +2,8 @@
 
 $isDebug = true;
 include __DIR__ . "/vendor/autoload.php";
-include __DIR__ . "/ApiConnectionHelper.php";
-include __DIR__ . "/FlatFileDatabaseHelper.php";
+include __DIR__ . "/Helpers/ApiConnectionHelper.php";
+include __DIR__ . "/Helpers/FlatFileDatabaseHelper.php";
 include __DIR__ . "/config.php";
 $apiConnection = new ApiConnectionHelper([
     'host' => HOST,

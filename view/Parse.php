@@ -40,5 +40,6 @@ class Parse
             $allRow = $flatBase->getAllRows();
             array_push($allRows, $allRow);
         }
+        return $allRows;
     }
 }

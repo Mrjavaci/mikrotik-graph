@@ -1,5 +1,5 @@
 {
-    "name": "javaci/mikrotik-graph",
+    "name": "mrjavaci/mikrotik-graph",
     "type": "project",
     "require": {
         "evilfreelancer/routeros-api-php": "^1.4",
