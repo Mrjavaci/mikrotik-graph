@@ -15,7 +15,7 @@ class FlatFileDatabaseHelper
         if ($collectionName == null) {
             $this->collectionName = FlatFileDatabaseHelper::createCollectionName();
         } else {
-            $this->collectionName =  $collectionName;
+            $this->collectionName = $collectionName;
         }
         $storage = new Flatbase\Storage\Filesystem(__DIR__ . "/.." . DATABASE_FOLDER);
         $flatBase = new Flatbase\Flatbase($storage);
@@ -31,6 +31,11 @@ class FlatFileDatabaseHelper
     public function getAllRows()
     {
         return $this->flatBase->read()->in($this->collectionName)->get();
+    }
+
+        public function getFirstRow()
+    {
+        return $this->flatBase->read()->in($this->collectionName)->limit(1) ->get();
     }
 
     public function getAllRowsNormalized()

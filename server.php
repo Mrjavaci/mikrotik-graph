@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Istanbul');
 
 $isDebug = true;
 include __DIR__ . "/vendor/autoload.php";
@@ -20,10 +21,11 @@ while (1) {
     $rxTx["date"] = FlatFileDatabaseHelper::createCollectionName();
     $rxTx["time"] = date("H:m:s");
     $flatFile->addNewRow($rxTx);
-    echo $rxTx["time"];
     sleep(SLEEP_SECONDS);//performance test
     if ($isDebug) {
-        if ($i > 250) {
+        echo "--" . $i . "--";
+        if ($i > 15) {
+
             die("die");
         }
     }

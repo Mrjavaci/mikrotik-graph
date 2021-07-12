@@ -33,12 +33,32 @@ class Parse
         return $filesArray;
     }
 
-    public function getNormalizedArray()
+    public function getDetailNames()
+    {
+        $flatBase = $this->flatBases[0];
+        $row = $flatBase->getFirstRow();
+        $tmp = array();
+        foreach ($row[0][0] as $key => $value) {
+            array_push($tmp, $key);
+        }
+        return $tmp;
+    }
+
+    public function getNormalizedArray($detail)
     {
         $allRows = array();
         foreach ($this->flatBases as $flatBase) {
             $allRow = $flatBase->getAllRows();
-            array_push($allRows, $allRow);
+            $labels = array();
+            $values = array();
+            foreach ($allRow as $value) {
+                array_push($values, $value[0][$detail]);
+                array_push($labels, $value["time"]);
+
+            }
+            $allRows["labels"] = $labels;
+            $allRows["values"] = $values;
+            //      array_push($allRows, $allRow);
         }
         return $allRows;
     }
