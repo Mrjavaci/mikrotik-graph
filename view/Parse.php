@@ -52,7 +52,7 @@ class Parse
             $labels = array();
             $values = array();
             foreach ($allRow as $value) {
-                array_push($values, $value[0][$detail]);
+                array_push($values, $value[0][$detail],3);
                 array_push($labels, $value["time"]);
 
             }
@@ -62,4 +62,6 @@ class Parse
         }
         return $allRows;
     }
+
+
 }

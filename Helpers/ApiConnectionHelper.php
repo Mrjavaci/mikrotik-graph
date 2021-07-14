@@ -41,7 +41,7 @@ class ApiConnectionHelper
         //  $query = (new Query('/interface'))->equal('monitor-traffic', 'ether1');
         $query =
             (new Query('/interface/monitor-traffic'))
-                ->equal('interface', _INTERFACE_)
+                ->equal('interface', $this->interface)
                 ->equal('once');
         $response = $this->client->query($query)->read();
         return $response;

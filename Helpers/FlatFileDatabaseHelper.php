@@ -9,13 +9,23 @@ class FlatFileDatabaseHelper
 {
     private $flatBase;
     private $collectionName;
+    private $interface;
 
     public function __construct($collectionName = null)
     {
-        if ($collectionName == null) {
-            $this->collectionName = FlatFileDatabaseHelper::createCollectionName();
-        } else {
-            $this->collectionName = $collectionName;
+        $this->collectionName = $collectionName;
+    }
+
+    public function setInterface($int)
+    {
+        $this->interface = $int;
+        $this->initializeClass();
+    }
+
+    public function initializeClass()
+    {
+        if ($this->collectionName == null) {
+            $this->collectionName = FlatFileDatabaseHelper::createCollectionName($this->interface);
         }
         $storage = new Flatbase\Storage\Filesystem(__DIR__ . "/.." . DATABASE_FOLDER);
         $flatBase = new Flatbase\Flatbase($storage);
@@ -33,9 +43,9 @@ class FlatFileDatabaseHelper
         return $this->flatBase->read()->in($this->collectionName)->get();
     }
 
-        public function getFirstRow()
+    public function getFirstRow()
     {
-        return $this->flatBase->read()->in($this->collectionName)->limit(1) ->get();
+        return $this->flatBase->read()->in($this->collectionName)->limit(1)->get();
     }
 
     public function getAllRowsNormalized()
@@ -48,8 +58,10 @@ class FlatFileDatabaseHelper
         return $groups;
     }
 
-    public static function createCollectionName()
+    public function createCollectionName($appendInterface = null)
     {
+        if ($appendInterface != null)
+            return date('d-m-y') . "_" . $appendInterface . ".jvc";
         return date('d-m-y');
     }
 }
