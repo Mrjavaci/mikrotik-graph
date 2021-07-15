@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3113fc444b99151e02d9f1dce5216df7",
+    "content-hash": "e5dff580b51b3f330a450863d54fba5e",
     "packages": [
         {
             "name": "divineomega/php-ssh-connection",
@@ -351,9 +351,7 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "ext-json": "^8.0"
-    },
+    "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
