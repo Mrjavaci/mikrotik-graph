@@ -5,10 +5,13 @@ include __DIR__ . "/Parse.php";
 $parse = new Parse();
 
 if (isset($_POST["detail"])) {
-    $normalizedArray = $parse->getNormalizedArray($_POST["detail"]);
+    if (isset($_POST["interface"])) {
+        $normalizedArray = $parse->getNormalizedArray($_POST["detail"], $_POST["interface"]);
+
+    }
 
 }
-$normalizedArray = $parse->getNormalizedArray("rx-bits-per-second");
+//$normalizedArray = $parse->getNormalizedArray("rx-bits-per-second");
 ?>
 <html lang="tr">
 <head>
@@ -46,6 +49,7 @@ $normalizedArray = $parse->getNormalizedArray("rx-bits-per-second");
                 }
             });
         }
+
         function bytesToSize(bytes) {
             var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
             if (bytes == 0) return '0 Byte';
@@ -57,12 +61,28 @@ $normalizedArray = $parse->getNormalizedArray("rx-bits-per-second");
 <body>
 <form action="" method="post">
 
-    <select name="detail" id="cars">
+    <select name="detail">
         <?php
         foreach ($parse->getDetailNames() as $detailName) {
+            $selected = "";
+            if ($detailName == @$_POST["detail"])
+                $selected = "selected";
             ?>
-            <option value="<?= $detailName ?>"><?= $detailName ?></option>
+            <option value="<?= $detailName ?>" <?= $selected ?>><?= $detailName ?></option>
+            <?php
 
+        }
+        ?>
+    </select>
+    <select name="interface">
+        <?php
+        foreach ($parse->getInterfaces() as $interface) {
+            $selected = "";
+            if ($interface == @$_POST["interface"])
+                $selected = "selected";
+            ?>
+            ?>
+            <option value="<?= $interface ?>" <?= $selected ?> ><?= $interface ?></option>
             <?php
 
         }

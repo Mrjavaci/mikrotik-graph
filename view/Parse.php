@@ -18,7 +18,8 @@ class Parse
         $databaseFileNames = $this->getDatabaseFileNames();
         $this->flatBases = array();
         foreach ($databaseFileNames as $databaseFileName) {
-            array_push($this->flatBases, new FlatFileDatabaseHelper($databaseFileName));
+            $flatBase = new FlatFileDatabaseHelper($databaseFileName);
+            array_push($this->flatBases, $flatBase);
         }
 
     }
@@ -36,6 +37,7 @@ class Parse
     public function getDetailNames()
     {
         $flatBase = $this->flatBases[0];
+        $flatBase->setInterface(_INTERFACE_[0]);
         $row = $flatBase->getFirstRow();
         $tmp = array();
         foreach ($row[0][0] as $key => $value) {
@@ -44,23 +46,49 @@ class Parse
         return $tmp;
     }
 
-    public function getNormalizedArray($detail)
+    public function getNormalizedArray($detail, $interface)
     {
         $allRows = array();
-        foreach ($this->flatBases as $flatBase) {
-            $allRow = $flatBase->getAllRows();
-            $labels = array();
-            $values = array();
-            foreach ($allRow as $value) {
-                array_push($values, $value[0][$detail],3);
-                array_push($labels, $value["time"]);
 
+
+        foreach ($this->flatBases as $flatBase) {
+            if ($this->getInterfaceNameFromCollection($flatBase->collectionName) == $interface) {
+                $flatBase->setInterface($interface);
+                $allRow = $flatBase->getAllRows();
+                $labels = array();
+                $values = array();
+                foreach ($allRow as $value) {
+                    array_push($values, $value[0][$detail]);
+                    array_push($labels, $value["time"]);
+
+                }
+                $allRows["labels"] = $labels;
+                $allRows["values"] = $values;
+                //    echo $flatBase->interface;
+                //   return $allRows;
             }
-            $allRows["labels"] = $labels;
-            $allRows["values"] = $values;
-            //      array_push($allRows, $allRow);
         }
+
         return $allRows;
+    }
+
+    public function getInterfaces()
+    {
+        $fileNames = $this->getDatabaseFileNames();
+        $tmpArray = array();
+        foreach ($fileNames as $fileName) {
+            $interfacesWithDot = explode("_", $fileName);
+            $interfacesWithoutDot = explode(".", $interfacesWithDot[1]);
+            array_push($tmpArray, $interfacesWithoutDot[0]);
+        }
+        return array_unique($tmpArray);
+    }
+
+    private function getInterfaceNameFromCollection($collectionName)
+    {
+        $interfacesWithDot = explode("_", $collectionName);
+        $interfacesWithoutDot = explode(".", $interfacesWithDot[1]);
+        return $interfacesWithoutDot[0];
     }
 
 

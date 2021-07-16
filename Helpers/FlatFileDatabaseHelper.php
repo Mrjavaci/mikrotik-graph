@@ -8,8 +8,8 @@
 class FlatFileDatabaseHelper
 {
     private $flatBase;
-    private $collectionName;
-    private $interface;
+    public $collectionName;
+    public $interface;
 
     public function __construct($collectionName = null)
     {
@@ -58,10 +58,10 @@ class FlatFileDatabaseHelper
         return $groups;
     }
 
-    public function createCollectionName($appendInterface = null)
+    public function createCollectionName()
     {
-        if ($appendInterface != null)
-            return date('d-m-y') . "_" . $appendInterface . ".jvc";
-        return date('d-m-y');
+        if ($this->collectionName == null)
+            return date('d-m-y') . "_" . $this->interface . ".jvc";
+        return $this->collectionName;
     }
 }
