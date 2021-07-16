@@ -1,6 +1,5 @@
 <?php
 date_default_timezone_set('Europe/Istanbul');
-
 $isDebug = false;
 include __DIR__ . "/vendor/autoload.php";
 include __DIR__ . "/Helpers/ApiConnectionHelper.php";
@@ -24,13 +23,14 @@ while (1) {
         $rxTx["date"] = $flatFile->createCollectionName($val);
         $rxTx["time"] = date("H:m:s");
         $flatFile->addNewRow($rxTx);
-        sleep(SLEEP_SECONDS);//performance test
-	echo "\n".$i."\n";
-        if ($isDebug) {
-            echo "--" . $i . "--";
-            if ($i > 15) {
-                die("die");
-            }
+
+    }
+    sleep(SLEEP_SECONDS);//performance test
+    echo "\n" . $i . "\n";
+    if ($isDebug) {
+        echo "--" . $i . "--";
+        if ($i > 15) {
+            die("die");
         }
     }
 }

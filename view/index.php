@@ -11,7 +11,7 @@ if (isset($_POST["detail"])) {
     }
 
 }
-//$normalizedArray = $parse->getNormalizedArray("rx-bits-per-second");
+//$normalizedArray = $parse->getNormalizedArray("rx-bits-per-second", "ether1");
 ?>
 <html lang="tr">
 <head>
